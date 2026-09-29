@@ -1,0 +1,58 @@
+<%- include('partials/header') %>
+
+<section class="section" style="padding-top:60px;">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Full Collection</span>
+        <h2>Shop All Looks</h2>
+      </div>
+    </div>
+
+    <div class="filter-bar">
+      <div class="filter-chips">
+        <a href="/shop" class="chip <%= activeCategory === '' ? 'active' : '' %>">All</a>
+        <% categories.forEach(function(c) { %>
+          <a href="/shop?category=<%= c %>" class="chip <%= activeCategory === c ? 'active' : '' %>"><%= c %></a>
+        <% }) %>
+      </div>
+      <form method="get" action="/shop">
+        <% if (activeCategory) { %><input type="hidden" name="category" value="<%= activeCategory %>" /><% } %>
+        <select name="sort" class="sort-select" onchange="this.form.submit()">
+          <option value="">Sort: Look Order</option>
+          <option value="price-asc" <%= activeSort === 'price-asc' ? 'selected' : '' %>>Price: Low to High</option>
+          <option value="price-desc" <%= activeSort === 'price-desc' ? 'selected' : '' %>>Price: High to Low</option>
+        </select>
+      </form>
+    </div>
+
+    <% if (products.length === 0) { %>
+      <div class="empty-state">
+        <h3>No Looks in this category yet.</h3>
+        <p>Check back soon, or browse the full collection.</p>
+        <a href="/shop" class="btn">View All Looks</a>
+      </div>
+    <% } else { %>
+      <div class="grid">
+        <% products.forEach(function(p) { %>
+          <a href="/product/<%= p._id %>" class="card">
+            <div class="card-image">
+              <span class="look-tag"><%= p.lookNumber %></span>
+              <% if (p.isNewArrival) { %><span class="badge-new">New</span><% } %>
+              <img src="<%= p.image %>" alt="<%= p.name %>" />
+              <% if (p.isSoldOut) { %><div class="badge-soldout">Sold Out</div><% } %>
+            </div>
+            <div class="card-cat"><%= p.category %></div>
+            <div class="card-title"><%= p.name %></div>
+            <div class="card-price">
+              <% if (p.compareAtPrice) { %><span class="price-strike">$<%= p.compareAtPrice %></span><% } %>
+              $<%= p.price %>
+            </div>
+          </a>
+        <% }) %>
+      </div>
+    <% } %>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

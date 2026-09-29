@@ -1,0 +1,108 @@
+<%- include('partials/header') %>
+
+<section class="wrap">
+  <div class="product-view">
+    <div class="product-gallery">
+      <div class="product-gallery-main">
+        <img id="mainImage" src="<%= product.image %>" alt="<%= product.name %>" />
+      </div>
+      <% if (product.gallery && product.gallery.length) { %>
+        <div class="product-thumbs">
+          <img src="<%= product.image %>" onclick="document.getElementById('mainImage').src=this.src" />
+          <% product.gallery.forEach(function(g) { %>
+            <img src="<%= g %>" onclick="document.getElementById('mainImage').src=this.src" />
+          <% }) %>
+        </div>
+      <% } %>
+    </div>
+
+    <div class="product-info">
+      <span class="eyebrow"><%= product.lookNumber %> — <%= product.category %></span>
+      <h1><%= product.name %></h1>
+      <div class="product-price">
+        <% if (product.compareAtPrice) { %><span class="price-strike">$<%= product.compareAtPrice %></span><% } %>
+        $<%= product.price %>
+      </div>
+      <p><%= product.description %></p>
+
+      <% if (product.isSoldOut) { %>
+        <p style="text-transform:uppercase; letter-spacing:0.08em; font-size:13px; color:var(--burgundy);">Currently sold out</p>
+      <% } else { %>
+        <form action="/cart/add" method="post">
+          <input type="hidden" name="productId" value="<%= product._id %>" />
+
+          <div class="option-block">
+            <span class="option-label">Size</span>
+            <div class="size-options">
+              <% product.sizes.forEach(function(s, i) { %>
+                <label>
+                  <input type="radio" name="size" value="<%= s %>" <%= i === 0 ? 'checked' : '' %> />
+                  <span><%= s %></span>
+                </label>
+              <% }) %>
+            </div>
+          </div>
+
+          <% if (product.colors && product.colors.length) { %>
+            <div class="option-block">
+              <span class="option-label">Colour</span>
+              <div class="color-options">
+                <% product.colors.forEach(function(c, i) { %>
+                  <label>
+                    <input type="radio" name="color" value="<%= c %>" <%= i === 0 ? 'checked' : '' %> />
+                    <span><%= c %></span>
+                  </label>
+                <% }) %>
+              </div>
+            </div>
+          <% } %>
+
+          <div class="qty-row">
+            <span class="option-label" style="margin:0;">Qty</span>
+            <input type="number" name="quantity" value="1" min="1" max="10" class="qty-input" />
+          </div>
+
+          <button type="submit" class="btn btn-block btn-brass">Add to Bag</button>
+        </form>
+      <% } %>
+
+      <dl class="product-meta">
+        <dt>Fabric</dt>
+        <dd><%= product.fabric || 'Details available on request' %></dd>
+        <dt>Care</dt>
+        <dd>Dry clean recommended. Store on a padded hanger.</dd>
+        <dt>Shipping</dt>
+        <dd>Dispatched within 3–5 business days. Flat rate at checkout.</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<% if (related.length) { %>
+<hr class="hairline" />
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">You May Also Like</span>
+        <h2>More from <%= product.category %></h2>
+      </div>
+    </div>
+    <div class="grid" style="grid-template-columns: repeat(3, 1fr);">
+      <% related.forEach(function(p) { %>
+        <a href="/product/<%= p._id %>" class="card">
+          <div class="card-image">
+            <span class="look-tag"><%= p.lookNumber %></span>
+            <img src="<%= p.image %>" alt="<%= p.name %>" />
+          </div>
+          <div class="card-cat"><%= p.category %></div>
+          <div class="card-title"><%= p.name %></div>
+          <div class="card-price">$<%= p.price %></div>
+        </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<%- include('partials/footer') %>

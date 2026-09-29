@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a href="/" class="logo">ATELI<span>E</span>R</a>
+      <nav class="main-nav">
+        <a href="/shop">Shop All</a>
+        <a href="/shop?category=Dresses">Dresses</a>
+        <a href="/shop?category=Outerwear">Outerwear</a>
+        <a href="/shop?category=Knitwear">Knitwear</a>
+        <a href="/shop?category=Accessories">Accessories</a>
+      </nav>
+      <div class="header-icons">
+        <a href="/cart" class="cart-link">
+          Bag
+          <% if (cartCount > 0) { %><span class="cart-count"><%= cartCount %></span><% } %>
+        </a>
+      </div>
+    </div>
+  </header>

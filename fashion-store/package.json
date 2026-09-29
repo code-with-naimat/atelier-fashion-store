@@ -1,0 +1,23 @@
+{
+  "name": "atelier-fashion-store",
+  "version": "1.0.0",
+  "description": "Premium multi-page fashion e-commerce store template with Node/Express + MongoDB backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "seed": "node seed.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "mongoose": "^8.5.0",
+    "ejs": "^3.1.10",
+    "express-session": "^1.18.0",
+    "dotenv": "^16.4.5",
+    "connect-mongo": "^5.1.0",
+    "method-override": "^3.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}

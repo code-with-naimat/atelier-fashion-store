@@ -1,0 +1,71 @@
+<%- include('partials/header') %>
+
+<section class="hero">
+  <div class="hero-copy">
+    <span class="eyebrow">Autumn Collection — Look 01–08</span>
+    <h1>Clothing built to<br />outlast the trend.</h1>
+    <p>Eight silhouettes, cut from natural fibres and finished by hand. No noise, no logo — just quiet construction that holds its shape season after season.</p>
+    <a href="/shop" class="btn">Enter the Shop</a>
+  </div>
+  <div class="hero-image" style="background-image:url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1000&q=80');"></div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">New Arrivals</span>
+        <h2>The Latest Looks</h2>
+      </div>
+      <a href="/shop" class="btn-outline btn">View All</a>
+    </div>
+
+    <div class="grid">
+      <% featured.forEach(function(p) { %>
+        <a href="/product/<%= p._id %>" class="card">
+          <div class="card-image">
+            <span class="look-tag"><%= p.lookNumber %></span>
+            <% if (p.isNewArrival) { %><span class="badge-new">New</span><% } %>
+            <img src="<%= p.image %>" alt="<%= p.name %>" />
+            <% if (p.isSoldOut) { %><div class="badge-soldout">Sold Out</div><% } %>
+          </div>
+          <div class="card-cat"><%= p.category %></div>
+          <div class="card-title"><%= p.name %></div>
+          <div class="card-price">
+            <% if (p.compareAtPrice) { %><span class="price-strike">$<%= p.compareAtPrice %></span><% } %>
+            $<%= p.price %>
+          </div>
+        </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<hr class="hairline" />
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Our Approach</span>
+        <h2>Made with intent</h2>
+      </div>
+    </div>
+    <div class="grid" style="grid-template-columns: repeat(3, 1fr);">
+      <div>
+        <h3>01 — Fabric</h3>
+        <p>Wool, cotton, and linen sourced from mills we've worked with for years, chosen for how they age.</p>
+      </div>
+      <div>
+        <h3>02 — Cut</h3>
+        <p>Patterns are tested across three fittings before a single Look enters production.</p>
+      </div>
+      <div>
+        <h3>03 — Run</h3>
+        <p>Small batches only. When a Look sells out, it does not return in the same form.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

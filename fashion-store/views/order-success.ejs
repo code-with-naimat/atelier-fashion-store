@@ -1,0 +1,13 @@
+<%- include('partials/header') %>
+
+<section class="success-box">
+  <div class="success-icon">✓</div>
+  <span class="eyebrow">Order Confirmed</span>
+  <h2>Thank you, <%= order.customer.fullName.split(' ')[0] %>.</h2>
+  <p>Your Looks are being prepared. A confirmation has been noted against your order below — save this reference for any client care enquiries.</p>
+  <div class="order-id-tag">Order #<%= order._id.toString().slice(-8).toUpperCase() %></div>
+  <p style="font-size:14px;">Total charged: <strong>$<%= order.total %></strong> via <%= order.paymentMethod %></p>
+  <a href="/shop" class="btn" style="margin-top:20px;">Continue Shopping</a>
+</section>
+
+<%- include('partials/footer') %>
